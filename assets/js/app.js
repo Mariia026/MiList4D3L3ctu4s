@@ -10,13 +10,15 @@ const firebaseConfig = {
 };
 
 
-
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Auth
+// =====================
+// 🔐 AUTENTICACIÓN
+// =====================
+
 function registrar() {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
@@ -48,40 +50,16 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-// CRUD
-function agregarLibro() {
-  let nombre = document.getElementById("nombre").value;
-  let imagen = document.getElementById("imagen").value;
-
-  db.collection("libros").add({
-    nombre,
-    imagen,
-    userId: auth.currentUser.uid
-  }).then(cargarLibros);
-}
-
-function cargarLibros() {
-  let contenedor = document.getElementById("biblioteca");
-  contenedor.innerHTML = "";
-
-  db.collection("libros")
-    .where("userId", "==", auth.currentUser.uid)
-    .get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
-        let libro = doc.data();
-        contenedor.innerHTML += `
-          <div class="libro">
-            <img src="${libro.imagen}" width="100"><br>
-            ${libro.nombre}
-          </div>
-        `;
-      });
-    });
-}
-
+// =====================
+// 📚 VARIABLES
+// =====================
 
 let todosLibros = [];
+let editandoId = null;
+
+// =====================
+// 📥 CARGAR LIBROS
+// =====================
 
 function cargarLibros() {
   db.collection("libros")
@@ -89,12 +67,20 @@ function cargarLibros() {
     .get()
     .then(snapshot => {
       todosLibros = [];
+
       snapshot.forEach(doc => {
-        todosLibros.push(doc.data());
+        let data = doc.data();
+        data.id = doc.id;
+        todosLibros.push(data);
       });
+
       mostrarLibros(todosLibros);
     });
 }
+
+// =====================
+// 🎨 MOSTRAR LIBROS
+// =====================
 
 function mostrarLibros(lista) {
   let contenedor = document.getElementById("biblioteca");
@@ -104,19 +90,97 @@ function mostrarLibros(lista) {
     contenedor.innerHTML += `
       <div class="libro">
         <img src="${libro.imagen || 'https://via.placeholder.com/150'}">
-        <p>${libro.nombre}</p>
+        <h4>${libro.nombre}</h4>
+        <p>${libro.descripcion || ""}</p>
+        <small>${libro.estado}</small>
+        <br>
+        <button onclick="editarLibro('${libro.id}')">✏️</button>
+        <button onclick="eliminarLibro('${libro.id}')">❌</button>
       </div>
     `;
   });
 }
 
+// =====================
+// ➕ CREAR / EDITAR
+// =====================
+
+function guardarLibro() {
+  let nombre = document.getElementById("nombre").value;
+  let imagen = document.getElementById("imagen").value;
+  let descripcion = document.getElementById("descripcion").value;
+  let estado = document.getElementById("estado").value;
+
+  let data = {
+    nombre,
+    imagen,
+    descripcion,
+    estado,
+    userId: auth.currentUser.uid
+  };
+
+  if (editandoId) {
+    db.collection("libros").doc(editandoId).update(data)
+      .then(() => {
+        editandoId = null;
+        cerrarForm();
+        cargarLibros();
+      });
+  } else {
+    db.collection("libros").add(data)
+      .then(() => {
+        cerrarForm();
+        cargarLibros();
+      });
+  }
+}
+
+// =====================
+// ✏️ EDITAR
+// =====================
+
+function editarLibro(id) {
+  let libro = todosLibros.find(l => l.id === id);
+
+  document.getElementById("nombre").value = libro.nombre;
+  document.getElementById("imagen").value = libro.imagen;
+  document.getElementById("descripcion").value = libro.descripcion;
+  document.getElementById("estado").value = libro.estado;
+
+  editandoId = id;
+
+  document.getElementById("tituloForm").innerText = "Editar libro";
+  abrirForm();
+}
+
+// =====================
+// ❌ ELIMINAR
+// =====================
+
+function eliminarLibro(id) {
+  if (!confirm("¿Eliminar este libro?")) return;
+
+  db.collection("libros").doc(id).delete()
+    .then(cargarLibros);
+}
+
+// =====================
+// 🔍 BUSCAR
+// =====================
+
 function filtrar() {
   let texto = document.getElementById("buscador").value.toLowerCase();
+
   let filtrados = todosLibros.filter(l =>
     l.nombre.toLowerCase().includes(texto)
   );
+
   mostrarLibros(filtrados);
 }
+
+// =====================
+// 🪟 MODAL
+// =====================
 
 function abrirForm() {
   document.getElementById("modal").style.display = "block";
@@ -124,4 +188,15 @@ function abrirForm() {
 
 function cerrarForm() {
   document.getElementById("modal").style.display = "none";
+
+  document.getElementById("nombre").value = "";
+  document.getElementById("imagen").value = "";
+  document.getElementById("descripcion").value = "";
+
+  editandoId = null;
+
+  document.getElementById("tituloForm").innerText = "Agregar libro";
 }
+
+
+  
