@@ -1,70 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Mi Biblioteca</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-<div id="auth" class="center">
-  <h2>📚 Mi Biblioteca</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Contraseña">
+<div id="auth">
+  <h2>Login / Registro</h2>
+  <input id="email" placeholder="Email"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+  <button onclick="login()">Ingresar</button>
   <button onclick="registrar()">Registrarse</button>
-  <button onclick="login()">Iniciar sesión</button>
 </div>
 
 <div id="app" style="display:none;">
-  
-  <header>
-    <h1>📚 Mi Biblioteca</h1>
-    <button onclick="logout()">Salir</button>
-  </header>
+  <h2>Mi Biblioteca</h2>
+  <button onclick="logout()">Cerrar sesión</button>
 
-  <input type="text" id="buscador" placeholder="🔍 Buscar..." oninput="filtrar()">
+  <input id="buscador" placeholder="Buscar..." onkeyup="filtrar()">
 
-<div class="filtros">
-  <button onclick="filtrarEstado('todos')">Todos</button>
-  <button onclick="filtrarEstado('pendiente')">📌 Pendiente</button>
-  <button onclick="filtrarEstado('comprado')">🛒 Comprado</button>
-  <button onclick="filtrarEstado('leido')">✅ Leído</button>
-  <button onclick="filtrarFavoritos()">⭐ Favoritos</button>
+  <div class="filtros">
+    <button onclick="filtrarEstado('todos')">Todos</button>
+    <button onclick="filtrarEstado('pendiente')">📌 Pendiente</button>
+    <button onclick="filtrarEstado('comprado')">🛒 Comprado</button>
+    <button onclick="filtrarEstado('leido')">✅ Leído</button>
+    <button onclick="filtrarFavoritos()">⭐ Favoritos</button>
+  </div>
+
+  <button onclick="abrirForm()">Agregar libro</button>
+
+  <div id="biblioteca"></div>
 </div>
-<button onclick="toggleFavorito('${libro.id}')">
-  ${libro.favorito ? "⭐" : "☆"}
-</button>
-  
-  <div id="biblioteca" class="grid"></div>
 
-  <button class="fab" onclick="abrirForm()">+</button>
-
-  <div id="modal" class="modal">
+<div id="modal" class="modal">
   <div class="modal-content">
     <h3 id="tituloForm">Agregar libro</h3>
-
-    <input type="text" id="nombre" placeholder="Nombre">
-    <input type="text" id="imagen" placeholder="URL imagen">
-
-    <textarea id="descripcion" placeholder="Descripción"></textarea>
-
+    <input id="nombre" placeholder="Nombre"><br>
+    <input id="imagen" placeholder="URL imagen"><br>
+    <textarea id="descripcion" placeholder="Descripción"></textarea><br>
     <select id="estado">
-      <option value="pendiente">📌 Pendiente</option>
-      <option value="comprado">🛒 Comprado</option>
-      <option value="leido">✅ Leído</option>
-    </select>
-
+      <option value="pendiente">Pendiente</option>
+      <option value="comprado">Comprado</option>
+      <option value="leido">Leído</option>
+    </select><br>
     <button onclick="guardarLibro()">Guardar</button>
     <button onclick="cerrarForm()">Cancelar</button>
   </div>
-  </div>
-
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="assets/js/app.js"></script>
 
 </body>
