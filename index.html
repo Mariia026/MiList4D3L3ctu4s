@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    
+  <meta charset="UTF-8">
   <title>Mi Biblioteca</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div id="auth">
-  <h2>Login / Registro</h2>
+<div id="auth" class="center">
+  <h2>📚 Mi Biblioteca</h2>
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Contraseña">
   <button onclick="registrar()">Registrarse</button>
@@ -20,16 +16,28 @@
 </div>
 
 <div id="app" style="display:none;">
-  <h1>📚 Mi Biblioteca</h1>
-  <button onclick="logout()">Cerrar sesión</button>
+  
+  <header>
+    <h1>📚 Mi Biblioteca</h1>
+    <button onclick="logout()">Salir</button>
+  </header>
 
-  <div>
-    <input type="text" id="nombre" placeholder="Nombre del libro">
-    <input type="text" id="imagen" placeholder="URL portada">
-    <button onclick="agregarLibro()">Agregar</button>
+  <input type="text" id="buscador" placeholder="🔍 Buscar..." oninput="filtrar()">
+
+  <div id="biblioteca" class="grid"></div>
+
+  <button class="fab" onclick="abrirForm()">+</button>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3>Agregar libro</h3>
+      <input type="text" id="nombre" placeholder="Nombre">
+      <input type="text" id="imagen" placeholder="URL imagen">
+      <button onclick="agregarLibro()">Guardar</button>
+      <button onclick="cerrarForm()">Cancelar</button>
+    </div>
   </div>
 
-  <div id="biblioteca"></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
