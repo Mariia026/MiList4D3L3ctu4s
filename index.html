@@ -24,6 +24,17 @@
 
   <input type="text" id="buscador" placeholder="🔍 Buscar..." oninput="filtrar()">
 
+<div class="filtros">
+  <button onclick="filtrarEstado('todos')">Todos</button>
+  <button onclick="filtrarEstado('pendiente')">📌 Pendiente</button>
+  <button onclick="filtrarEstado('comprado')">🛒 Comprado</button>
+  <button onclick="filtrarEstado('leido')">✅ Leído</button>
+  <button onclick="filtrarFavoritos()">⭐ Favoritos</button>
+</div>
+<button onclick="toggleFavorito('${libro.id}')">
+  ${libro.favorito ? "⭐" : "☆"}
+</button>
+  
   <div id="biblioteca" class="grid"></div>
 
   <button class="fab" onclick="abrirForm()">+</button>
