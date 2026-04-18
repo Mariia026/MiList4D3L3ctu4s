@@ -178,6 +178,26 @@ function filtrar() {
   mostrarLibros(filtrados);
 }
 
+
+// ✅ FILTROS
+
+function filtrarEstado(estado) {
+  if (estado === "todos") {
+    mostrarLibros(todosLibros);
+    return;
+  }
+
+  let filtrados = todosLibros.filter(l => l.estado === estado);
+  mostrarLibros(filtrados);
+}
+
+function filtrarFavoritos() {
+  let filtrados = todosLibros.filter(l => l.favorito);
+  mostrarLibros(filtrados);
+}
+  
+
+
 // =====================
 // 🪟 MODAL
 // =====================
@@ -200,20 +220,3 @@ function cerrarForm() {
 
 
 
-// ✅ FILTROS
-
-function filtrarEstado(estado) {
-  if (estado === "todos") {
-    mostrarLibros(todosLibros);
-    return;
-  }
-
-  let filtrados = todosLibros.filter(l => l.estado === estado);
-  mostrarLibros(filtrados);
-}
-
-function filtrarFavoritos() {
-  let filtrados = todosLibros.filter(l => l.favorito);
-  mostrarLibros(filtrados);
-}
-  
