@@ -79,3 +79,49 @@ function cargarLibros() {
       });
     });
 }
+
+
+let todosLibros = [];
+
+function cargarLibros() {
+  db.collection("libros")
+    .where("userId", "==", auth.currentUser.uid)
+    .get()
+    .then(snapshot => {
+      todosLibros = [];
+      snapshot.forEach(doc => {
+        todosLibros.push(doc.data());
+      });
+      mostrarLibros(todosLibros);
+    });
+}
+
+function mostrarLibros(lista) {
+  let contenedor = document.getElementById("biblioteca");
+  contenedor.innerHTML = "";
+
+  lista.forEach(libro => {
+    contenedor.innerHTML += `
+      <div class="libro">
+        <img src="${libro.imagen || 'https://via.placeholder.com/150'}">
+        <p>${libro.nombre}</p>
+      </div>
+    `;
+  });
+}
+
+function filtrar() {
+  let texto = document.getElementById("buscador").value.toLowerCase();
+  let filtrados = todosLibros.filter(l =>
+    l.nombre.toLowerCase().includes(texto)
+  );
+  mostrarLibros(filtrados);
+}
+
+function abrirForm() {
+  document.getElementById("modal").style.display = "block";
+}
+
+function cerrarForm() {
+  document.getElementById("modal").style.display = "none";
+}
