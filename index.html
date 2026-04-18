@@ -29,13 +29,23 @@
   <button class="fab" onclick="abrirForm()">+</button>
 
   <div id="modal" class="modal">
-    <div class="modal-content">
-      <h3>Agregar libro</h3>
-      <input type="text" id="nombre" placeholder="Nombre">
-      <input type="text" id="imagen" placeholder="URL imagen">
-      <button onclick="agregarLibro()">Guardar</button>
-      <button onclick="cerrarForm()">Cancelar</button>
-    </div>
+  <div class="modal-content">
+    <h3 id="tituloForm">Agregar libro</h3>
+
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="text" id="imagen" placeholder="URL imagen">
+
+    <textarea id="descripcion" placeholder="Descripción"></textarea>
+
+    <select id="estado">
+      <option value="pendiente">📌 Pendiente</option>
+      <option value="comprado">🛒 Comprado</option>
+      <option value="leido">✅ Leído</option>
+    </select>
+
+    <button onclick="guardarLibro()">Guardar</button>
+    <button onclick="cerrarForm()">Cancelar</button>
+  </div>
   </div>
 
 </div>
