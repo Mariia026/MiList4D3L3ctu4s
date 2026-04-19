@@ -179,3 +179,9 @@ document.getElementById("fileBackup").addEventListener("change", function(e) {
 
   reader.readAsText(file);
 });
+
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+    .then(() => console.log("App instalada 🔥"));
+}
