@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Mi Biblioteca</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -53,9 +54,7 @@
 
   <button onclick="exportarBackup()">💾 Descargar backup</button>
 <button onclick="importarBackup()">📂 Restaurar backup</button>
-<input type="file" id="fileBackup" style="display:none"><br><br>
-
-<link rel="manifest" href="manifest.json">
+<input type="file" id="fileBackup" style="display:none">
 
   
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
