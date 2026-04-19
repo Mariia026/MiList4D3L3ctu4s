@@ -142,3 +142,40 @@ function cerrarForm(){
   editandoId=null;
   document.getElementById("tituloForm").innerText="Agregar libro";
 }
+
+function exportarBackup() {
+  let dataStr = JSON.stringify(todosLibros);
+  let blob = new Blob([dataStr], { type: "application/json" });
+
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "backup_libros.json";
+  a.click();
+}
+
+function importarBackup() {
+  document.getElementById("fileBackup").click();
+}
+
+document.getElementById("fileBackup").addEventListener("change", function(e) {
+  let file = e.target.files[0];
+
+  let reader = new FileReader();
+  reader.onload = function() {
+    let libros = JSON.parse(reader.result);
+
+    libros.forEach(libro => {
+      delete libro.id;
+
+      db.collection("libros").add({
+        ...libro,
+        userId: auth.currentUser.uid
+      });
+    });
+
+    alert("Backup restaurado");
+    cargarLibros();
+  };
+
+  reader.readAsText(file);
+});
