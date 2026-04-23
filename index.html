@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Mi Biblioteca</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<title>Mi Biblioteca</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
 <div id="auth">
-  <h2>Login / Registro</h2>
-  <input id="email" placeholder="Email"><br>
-  <input id="password" type="password" placeholder="Password"><br>
-  <button onclick="login()">Ingresar</button>
-  <button onclick="registrar()">Registrarse</button>
+<h2>Login / Registro</h2>
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+<button onclick="login()">Ingresar</button>
+<button onclick="registrar()">Registrarse</button>
 </div>
 
 <div id="app" style="display:none;">
-  <h2>Mi Biblioteca</h2>
-  <button onclick="logout()">Cerrar sesión</button>
+<h2>Mi Biblioteca</h2>
+<button onclick="logout()">Cerrar sesión</button>
 
-  <input id="buscador" placeholder="Buscar..." onkeyup="filtrar()">
+<input id="buscador" placeholder="Buscar..." onkeyup="filtrar()">
 
-  <div class="filtros">
-    <button onclick="filtrarEstado('todos')">Todos</button>
-    <button onclick="filtrarEstado('pendiente')">📌 Pendiente</button>
-    <button onclick="filtrarEstado('comprado')">🛒 Comprado</button>
-    <button onclick="filtrarEstado('leido')">✅ Leído</button>
-    <button onclick="filtrarFavoritos()">⭐ Favoritos</button>
-  </div>
+<div class="filtros">
+<button onclick="filtrarEstado('todos')">Todos</button>
+<button onclick="filtrarEstado('pendiente')">Pendiente</button>
+<button onclick="filtrarEstado('comprado')">Comprado</button>
+<button onclick="filtrarEstado('leido')">Leído</button>
+<button onclick="filtrarFavoritos()">⭐</button>
+</div>
 
-  <button onclick="abrirForm()">Agregar libro</button>
+<button onclick="abrirForm()">Agregar libro</button>
 
-  <div id="biblioteca"></div>
+<div id="biblioteca"></div>
 </div>
 
 <div id="modal" class="modal">
-  <div class="modal-content">
-    <h3 id="tituloForm">Agregar libro</h3>
-    <input id="nombre" placeholder="Nombre"><br>
-    <input id="imagen" placeholder="URL imagen"><br>
-    <textarea id="descripcion" placeholder="Descripción"></textarea><br>
-    <select id="estado">
-      <option value="pendiente">Pendiente</option>
-      <option value="comprado">Comprado</option>
-      <option value="leido">Leído</option>
-    </select><br>
-    <button onclick="guardarLibro()">Guardar</button>
-    <button onclick="cerrarForm()">Cancelar</button>
-  </div>
-</div><br><br><br>
+<div class="modal-content">
+<h3 id="tituloForm">Agregar libro</h3>
+<input id="nombre" placeholder="Nombre"><br>
+<input id="imagen" placeholder="URL imagen"><br>
+<textarea id="descripcion" placeholder="Descripción"></textarea><br>
+<select id="estado">
+<option value="pendiente">Pendiente</option>
+<option value="comprado">Comprado</option>
+<option value="leido">Leído</option>
+</select><br>
+<button onclick="guardarLibro()">Guardar</button>
+<button onclick="cerrarForm()">Cancelar</button>
+</div>
+</div>
 
-
-  <button onclick="exportarBackup()">💾 Descargar backup</button>
-<button onclick="importarBackup()">📂 Restaurar backup</button>
-<input type="file" id="fileBackup" style="display:none">
-
-  
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
