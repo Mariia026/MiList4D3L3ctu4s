@@ -1,12 +1,7 @@
-// 🔴 REEMPLAZAR CON TU CONFIG
 const firebaseConfig = {
-  apiKey: "AIzaSyCAmvZgXrDDuOwrV-9S-YESMCHSxeQ1oeo",
-  authDomain: "milist4d3l3ctu4s.firebaseapp.com",
-  projectId: "milist4d3l3ctu4s",
-  storageBucket: "milist4d3l3ctu4s.firebasestorage.app",
-  messagingSenderId: "186844556335",
-  appId: "1:186844556335:web:1205e5f87b54883b0b2ada",
-  measurementId: "G-05L07HR5D9"
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_APP.firebaseapp.com",
+  projectId: "TU_APP"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -42,7 +37,24 @@ auth.onAuthStateChanged(user=>{
   }
 });
 
+function guardarLocal(){
+  localStorage.setItem("libros", JSON.stringify(todosLibros));
+}
+
+function cargarLocal(){
+  let data = localStorage.getItem("libros");
+  if(data){
+    todosLibros = JSON.parse(data);
+    mostrarLibros(todosLibros);
+  }
+}
+
 function cargarLibros(){
+  if(!navigator.onLine){
+    cargarLocal();
+    return;
+  }
+
   db.collection("libros")
     .where("userId","==",auth.currentUser.uid)
     .get()
@@ -53,8 +65,10 @@ function cargarLibros(){
         d.id=doc.id;
         todosLibros.push(d);
       });
+      guardarLocal();
       mostrarLibros(todosLibros);
-    });
+    })
+    .catch(()=>cargarLocal());
 }
 
 function mostrarLibros(lista){
@@ -96,6 +110,7 @@ function guardarLibro(){
       cargarLibros();
     });
   }
+  guardarLocal();
 }
 
 function editarLibro(id){
@@ -112,11 +127,13 @@ function editarLibro(id){
 function eliminarLibro(id){
   if(!confirm("Eliminar?"))return;
   db.collection("libros").doc(id).delete().then(cargarLibros);
+  guardarLocal();
 }
 
 function toggleFavorito(id){
   let l=todosLibros.find(x=>x.id===id);
   db.collection("libros").doc(id).update({favorito:!l.favorito}).then(cargarLibros);
+  guardarLocal();
 }
 
 function filtrar(){
@@ -143,45 +160,6 @@ function cerrarForm(){
   document.getElementById("tituloForm").innerText="Agregar libro";
 }
 
-function exportarBackup() {
-  let dataStr = JSON.stringify(todosLibros);
-  let blob = new Blob([dataStr], { type: "application/json" });
-
-  let a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "backup_libros.json";
-  a.click();
-}
-
-function importarBackup() {
-  document.getElementById("fileBackup").click();
-}
-
-document.getElementById("fileBackup").addEventListener("change", function(e) {
-  let file = e.target.files[0];
-
-  let reader = new FileReader();
-  reader.onload = function() {
-    let libros = JSON.parse(reader.result);
-
-    libros.forEach(libro => {
-      delete libro.id;
-
-      db.collection("libros").add({
-        ...libro,
-        userId: auth.currentUser.uid
-      });
-    });
-
-    alert("Backup restaurado");
-    cargarLibros();
-  };
-
-  reader.readAsText(file);
-});
-
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("App instalada 🔥"));
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
 }
