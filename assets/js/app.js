@@ -1,7 +1,12 @@
+// 🔴 REEMPLAZAR CON TU CONFIG
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_APP.firebaseapp.com",
-  projectId: "TU_APP"
+  apiKey: "AIzaSyCAmvZgXrDDuOwrV-9S-YESMCHSxeQ1oeo",
+  authDomain: "milist4d3l3ctu4s.firebaseapp.com",
+  projectId: "milist4d3l3ctu4s",
+  storageBucket: "milist4d3l3ctu4s.firebasestorage.app",
+  messagingSenderId: "186844556335",
+  appId: "1:186844556335:web:1205e5f87b54883b0b2ada",
+  measurementId: "G-05L07HR5D9"
 };
 
 firebase.initializeApp(firebaseConfig);
