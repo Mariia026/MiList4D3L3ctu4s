@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Mi Biblioteca</title>
-<link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
 
+<div id="estadoConexion">🟢 Online</div>
+
 <div id="auth">
-<h2>Login / Registro</h2>
+<h2>Login</h2>
 <input id="email" placeholder="Email"><br>
 <input id="password" type="password" placeholder="Password"><br>
-<button onclick="login()">Ingresar</button>
+<button onclick="login()">Entrar</button>
 <button onclick="registrar()">Registrarse</button>
 </div>
 
 <div id="app" style="display:none;">
-<h2>Mi Biblioteca</h2>
-<button onclick="logout()">Cerrar sesión</button>
+<button onclick="logout()">Salir</button>
 
 <input id="buscador" placeholder="Buscar..." onkeyup="filtrar()">
 
-<div class="filtros">
+<div>
 <button onclick="filtrarEstado('todos')">Todos</button>
 <button onclick="filtrarEstado('pendiente')">Pendiente</button>
 <button onclick="filtrarEstado('comprado')">Comprado</button>
@@ -30,17 +31,18 @@
 <button onclick="filtrarFavoritos()">⭐</button>
 </div>
 
-<button onclick="abrirForm()">Agregar libro</button>
+<button onclick="abrirForm()">Agregar</button>
+<button onclick="exportarBackup()">💾</button>
 
 <div id="biblioteca"></div>
 </div>
 
 <div id="modal" class="modal">
 <div class="modal-content">
-<h3 id="tituloForm">Agregar libro</h3>
+<h3>Libro</h3>
 <input id="nombre" placeholder="Nombre"><br>
-<input id="imagen" placeholder="URL imagen"><br>
-<textarea id="descripcion" placeholder="Descripción"></textarea><br>
+<input id="imagen" placeholder="URL"><br>
+<textarea id="descripcion"></textarea><br>
 <select id="estado">
 <option value="pendiente">Pendiente</option>
 <option value="comprado">Comprado</option>
