@@ -1,6 +1,6 @@
 {
-"name":"Mi Biblioteca",
-"short_name":"Biblioteca",
-"start_url":".",
-"display":"standalone"
+  "name": "Mi Biblioteca",
+  "short_name": "Biblioteca",
+  "start_url": "/MiList4D3L3ctu4s/",
+  "display": "standalone"
 }
