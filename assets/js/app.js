@@ -1,3 +1,5 @@
+alert("JS cargado");
+
 // 🔴 REEMPLAZAR CON TU CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyCAmvZgXrDDuOwrV-9S-YESMCHSxeQ1oeo",
@@ -167,4 +169,11 @@ function cerrarForm(){
 
 if("serviceWorker" in navigator){
   navigator.serviceWorker.register("service-worker.js");
+}
+
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js")
+    .then(() => alert("SW instalado"))
+    .catch(() => alert("SW error"));
 }
