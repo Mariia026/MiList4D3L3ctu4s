@@ -1,7 +1,3 @@
-.libro{display:inline-block;background:#222;color:#fff;padding:10px;margin:10px;border-radius:10px;transition:.2s}
-.libro:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(0,0,0,.5)}
-button{margin:3px;padding:5px 10px;border:none;border-radius:5px;cursor:pointer;transition:.1s}
-button:active{transform:scale(.9)}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7)}
-.modal-content{background:#fff;padding:20px;margin:10% auto;width:300px;border-radius:10px;animation:aparecer .3s}
-@keyframes aparecer{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+.libro{display:inline-block;background:#222;color:#fff;padding:10px;margin:10px;border-radius:10px}
+.modal{display:none;position:fixed;width:100%;height:100%;background:rgba(0,0,0,.7)}
+.modal-content{background:#fff;padding:20px;margin:10% auto;width:300px;border-radius:10px}
