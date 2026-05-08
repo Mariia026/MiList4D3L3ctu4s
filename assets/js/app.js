@@ -173,7 +173,13 @@ if("serviceWorker" in navigator){
 
 
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .then(() => alert("SW instalado"))
-    .catch(() => alert("SW error"));
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => {
+        console.log("Service Worker listo");
+      })
+      .catch(err => {
+        console.log("Error SW:", err);
+      });
+  });
 }
