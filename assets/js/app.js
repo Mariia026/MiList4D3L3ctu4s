@@ -172,7 +172,9 @@ function cerrarForm(){
 
 
 
-
+function prueba() {
+  alert("JS funcionando");
+}
 // EXPORTAR
 function exportarDatos() {
   let datos = localStorage.getItem("libros");
