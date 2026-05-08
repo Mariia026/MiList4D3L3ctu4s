@@ -1,6 +1,7 @@
-const CACHE = "mi-biblioteca-v4";
+const CACHE = "app-final-v5";
 
 self.addEventListener("install", event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE).then(cache => {
       return cache.addAll([
@@ -14,13 +15,24 @@ self.addEventListener("install", event => {
 });
 
 self.addEventListener("activate", event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE) return caches.delete(key);
+        })
+      )
+    )
+  );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", event => {
   event.respondWith(
     caches.match(event.request).then(res => {
-      return res || fetch(event.request);
+      return res || fetch(event.request).catch(() => {
+        return caches.match("/MiList4D3L3ctu4s/index.html");
+      });
     })
   );
 });
