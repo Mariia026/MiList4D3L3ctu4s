@@ -89,7 +89,11 @@ function mostrarLibros(lista){
       <p>${l.descripcion||""}</p>
       <small>${l.estado}</small><br>
       <button onclick="toggleFavorito('${l.id}')">${l.favorito?"⭐":"☆"}</button>
-      <button onclick="editarLibro('${l.id}')">✏️</button>
+      
+      
+      
+      
+      <button onclick="alert('click'); editarLibro('${l.id}')">✏️</button>
       <button onclick="eliminarLibro('${l.id}')">❌</button>
     </div>`;
   });
