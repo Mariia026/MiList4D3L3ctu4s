@@ -178,15 +178,12 @@ function cerrarForm(){
 
 
 
+
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => {
-        console.log("Service Worker listo");
-      })
-      .catch(err => {
-        console.log("Error SW:", err);
-      });
+    navigator.serviceWorker.register("/MiList4D3L3ctu4s/service-worker.js")
+      .then(() => console.log("SW listo"))
+      .catch(err => console.log("Error SW:", err));
   });
 }
- 
