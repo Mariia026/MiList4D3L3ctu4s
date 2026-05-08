@@ -167,9 +167,15 @@ function cerrarForm(){
   document.getElementById("tituloForm").innerText="Agregar libro";
 }
 
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
-}
+
+
+
+
+
+
+
+
+
 
 
 if ("serviceWorker" in navigator) {
@@ -183,3 +189,4 @@ if ("serviceWorker" in navigator) {
       });
   });
 }
+ 
