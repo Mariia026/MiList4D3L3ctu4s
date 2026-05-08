@@ -1,4 +1,4 @@
-const CACHE = "mi-biblioteca-v3";
+const CACHE = "mi-biblioteca-v4";
 
 self.addEventListener("install", event => {
   event.waitUntil(
@@ -11,6 +11,10 @@ self.addEventListener("install", event => {
       ]);
     })
   );
+});
+
+self.addEventListener("activate", event => {
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("fetch", event => {
