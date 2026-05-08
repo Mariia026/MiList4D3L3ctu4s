@@ -1,4 +1,4 @@
-111
+222
 
 <!DOCTYPE html>
 <html>
@@ -54,6 +54,10 @@
 <button onclick="cerrarForm()">Cancelar</button>
 </div>
 </div>
+
+<button onclick="exportarDatos()">📤 Exportar Backup</button>
+<input type="file" id="importarArchivo" onchange="importarDatos(event)">
+
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
