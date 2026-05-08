@@ -121,13 +121,22 @@ function guardarLibro(){
 }
 
 function editarLibro(id){
-  let l=todosLibros.find(x=>x.id===id);
-  document.getElementById("nombre").value=l.nombre;
-  document.getElementById("imagen").value=l.imagen;
-  document.getElementById("descripcion").value=l.descripcion;
-  document.getElementById("estado").value=l.estado;
-  editandoId=id;
-  document.getElementById("tituloForm").innerText="Editar libro";
+  let l = todosLibros.find(x => x.id === id);
+
+  if (!l) {
+    alert("No se encontró el libro");
+    return;
+  }
+
+  document.getElementById("nombre").value = l.nombre || "";
+  document.getElementById("imagen").value = l.imagen || "";
+  document.getElementById("descripcion").value = l.descripcion || "";
+  document.getElementById("estado").value = l.estado || "pendiente";
+
+  editandoId = id;
+
+  document.getElementById("tituloForm").innerText = "Editar libro";
+
   abrirForm();
 }
 
