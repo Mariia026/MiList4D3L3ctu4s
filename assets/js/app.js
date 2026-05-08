@@ -90,10 +90,7 @@ function mostrarLibros(lista){
       <small>${l.estado}</small><br>
       <button onclick="toggleFavorito('${l.id}')">${l.favorito?"⭐":"☆"}</button>
       
-      
-      
-      
-      <button onclick="alert('click'); editarLibro('${l.id}')">✏️</button>
+      <button onclick="editarLibro('${l.id}')">✏️</button>
       <button onclick="eliminarLibro('${l.id}')">❌</button>
     </div>`;
   });
@@ -125,14 +122,6 @@ function guardarLibro(){
 }
 
 function editarLibro(id){
-  let l=todosLibros.find(x=>x.id===id);
-  document.getElementById("nombre").value=l.nombre;
-  document.getElementById("imagen").value=l.imagen;
-  document.getElementById("descripcion").value=l.descripcion;
-  document.getElementById("estado").value=l.estado;
-  editandoId=id;
-  
-  function editarLibro(id){
   let l = todosLibros.find(x => x.id === id);
 
   if(!l){
@@ -150,7 +139,14 @@ function editarLibro(id){
   document.getElementById("tituloForm").innerText = "Editar libro";
   abrirForm();
 }
-}
+
+
+
+
+
+
+
+
 
 function eliminarLibro(id){
   if(!confirm("Eliminar?"))return;
