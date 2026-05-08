@@ -173,6 +173,51 @@ function cerrarForm(){
 
 
 
+// EXPORTAR
+function exportarDatos() {
+  let datos = localStorage.getItem("libros");
+
+  if (!datos) {
+    alert("No hay datos para exportar");
+    return;
+  }
+
+  let blob = new Blob([datos], { type: "application/json" });
+  let url = URL.createObjectURL(blob);
+
+  let a = document.createElement("a");
+  a.href = url;
+  a.download = "backup_biblioteca.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+// IMPORTAR
+function importarDatos(event) {
+  let archivo = event.target.files[0];
+
+  if (!archivo) return;
+
+  let lector = new FileReader();
+
+  lector.onload = function(e) {
+    try {
+      let datos = JSON.parse(e.target.result);
+      localStorage.setItem("libros", JSON.stringify(datos));
+      alert("Backup restaurado correctamente");
+
+      location.reload(); // recargar la app
+    } catch (error) {
+      alert("Error al importar archivo");
+    }
+  };
+
+  lector.readAsText(archivo);
+}
+
+
+
 
 
 
